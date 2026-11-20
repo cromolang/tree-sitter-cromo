@@ -1,0 +1,56 @@
+================================================================================
+Comments
+================================================================================
+
+// A line comment.
+/* A block comment. */
+i32 f() { // after the brace
+    /* inside */ ret 1 // after a statement
+    // the last line
+}
+
+/*
+ * A block comment
+ * on several lines.
+ */
+void g() {
+    x = 1 /* in the middle */ + 2
+    call(a, // the first
+         b)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (comment)
+  (comment)
+  (function_definition
+    (type_identifier)
+    (identifier)
+    (parameter_list)
+    (block
+      (comment)
+      (comment)
+      (return_statement
+        (integer_literal))
+      (comment)
+      (comment)))
+  (comment)
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (integer_literal)
+          (comment)
+          (integer_literal)))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier)
+            (comment)
+            (identifier)))))))

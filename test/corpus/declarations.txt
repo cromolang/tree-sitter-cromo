@@ -1,0 +1,348 @@
+================================================================================
+Imports
+================================================================================
+
+import std.fs
+import json
+import unsafe
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (import_declaration
+    (module_path
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (module_path
+      (identifier)))
+  (import_declaration))
+
+================================================================================
+Module constants and variables
+================================================================================
+
+const i32 LIMIT = 10
+const string NAME = "cromo"
+i64 count = 0
+u8[4096] buffer
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (integer_literal))
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (string_literal
+      (string_content)))
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (integer_literal))
+  (variable_declaration
+    (array_type
+      (type_identifier)
+      (integer_literal))
+    (identifier)))
+
+================================================================================
+Functions
+================================================================================
+
+i32 add(i32 a, i32 b) {
+    ret a + b
+}
+
+public void update(ref Counter c, move string name, move const Buffer b, const func(i32) bool keep)
+{
+}
+
+void first() {} void second() {}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (type_identifier)
+    (identifier)
+    (parameter_list
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (type_identifier)
+        (identifier)))
+    (block
+      (return_statement
+        (binary_expression
+          (identifier)
+          (identifier)))))
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (function_type
+          (function_type_parameters
+            (type_identifier))
+          (type_identifier))
+        (identifier)))
+    (block))
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block))
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block)))
+
+================================================================================
+Struct with fields, constructor, destructor and methods
+================================================================================
+
+public struct File : Closable, Printable {
+    public string path
+    i32 handle = -1
+    i32[4] slots
+
+    File(string p) {
+        path = p
+    }
+
+    ~File() {
+        close()
+    }
+
+    public i32 size() const {
+        ret 0
+    }
+
+    void close() { handle = -1 }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_declaration
+    (type_identifier)
+    (interface_list
+      (type_identifier)
+      (type_identifier))
+    (struct_body
+      (field_declaration
+        (type_identifier)
+        (identifier))
+      (field_declaration
+        (type_identifier)
+        (identifier)
+        (unary_expression
+          (integer_literal)))
+      (field_declaration
+        (array_type
+          (type_identifier)
+          (integer_literal))
+        (identifier))
+      (constructor_definition
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier)))
+        (block
+          (assignment_statement
+            (identifier)
+            (identifier))))
+      (destructor_definition
+        (identifier)
+        (parameter_list)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (method_definition
+        (type_identifier)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (integer_literal))))
+      (method_definition
+        (void_type)
+        (identifier)
+        (parameter_list)
+        (block
+          (assignment_statement
+            (identifier)
+            (unary_expression
+              (integer_literal))))))))
+
+================================================================================
+Interface
+================================================================================
+
+interface Comparable {
+    i32 compare(Self other) const
+    void reset()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (interface_declaration
+    (type_identifier)
+    (interface_body
+      (method_signature
+        (type_identifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (method_signature
+        (void_type)
+        (identifier)
+        (parameter_list)))))
+
+================================================================================
+Function types
+================================================================================
+
+func(i32) bool keep
+func(i32) pending
+func(ref T, move string) list<T> build(func() func(i32) i32 make) {
+    func(i32) i32 f = make()
+    func() g
+    ret f
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    (function_type
+      (function_type_parameters
+        (type_identifier))
+      (type_identifier))
+    (identifier))
+  (variable_declaration
+    (function_type
+      (function_type_parameters
+        (type_identifier)))
+    (identifier))
+  (function_definition
+    (function_type
+      (function_type_parameters
+        (type_identifier)
+        (type_identifier))
+      (generic_type
+        (type_identifier)
+        (type_arguments
+          (type_identifier))))
+    (identifier)
+    (parameter_list
+      (parameter
+        (function_type
+          (function_type_parameters)
+          (function_type
+            (function_type_parameters
+              (type_identifier))
+            (type_identifier)))
+        (identifier)))
+    (block
+      (variable_declaration
+        (function_type
+          (function_type_parameters
+            (type_identifier))
+          (type_identifier))
+        (identifier)
+        (call_expression
+          (identifier)
+          (arguments)))
+      (variable_declaration
+        (function_type
+          (function_type_parameters))
+        (identifier))
+      (return_statement
+        (identifier)))))
+
+================================================================================
+Qualified and array types
+================================================================================
+
+void f(geometry.Circle c, list<geometry.Point> points, i32[4][2] grid) {
+    geometry.Circle other = c
+    map<string, i32[8]> table
+    u8[16] bytes
+    bytes[0] = 1
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list
+      (parameter
+        (qualified_type
+          (identifier)
+          (type_identifier))
+        (identifier))
+      (parameter
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (qualified_type
+              (identifier)
+              (type_identifier))))
+        (identifier))
+      (parameter
+        (array_type
+          (array_type
+            (type_identifier)
+            (integer_literal))
+          (integer_literal))
+        (identifier)))
+    (block
+      (variable_declaration
+        (qualified_type
+          (identifier)
+          (type_identifier))
+        (identifier)
+        (identifier))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)
+            (array_type
+              (type_identifier)
+              (integer_literal))))
+        (identifier))
+      (variable_declaration
+        (array_type
+          (type_identifier)
+          (integer_literal))
+        (identifier))
+      (assignment_statement
+        (index_expression
+          (identifier)
+          (integer_literal))
+        (integer_literal)))))

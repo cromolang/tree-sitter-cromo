@@ -1,0 +1,70 @@
+================================================================================
+Extern blocks
+================================================================================
+
+import unsafe
+
+extern "kernel32" {
+    addr GetStdHandle(i32 kind)
+    i32 CloseHandle(addr handle)
+    void ExitProcess(u32 code)
+}
+
+extern "c"
+{
+    i32 puts(addr text)
+}
+
+extern "m" { f64 sqrt(f64 x) }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (import_declaration)
+  (extern_block
+    (string_literal
+      (string_content))
+    (extern_body
+      (function_signature
+        (type_identifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (function_signature
+        (type_identifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (function_signature
+        (void_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))))
+  (extern_block
+    (string_literal
+      (string_content))
+    (extern_body
+      (function_signature
+        (type_identifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))))
+  (extern_block
+    (string_literal
+      (string_content))
+    (extern_body
+      (function_signature
+        (type_identifier)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier)))))))

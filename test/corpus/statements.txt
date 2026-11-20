@@ -1,0 +1,535 @@
+================================================================================
+Declarations, assignments and updates
+================================================================================
+
+void f() {
+    i32 x = 5
+    const f64 pi = 3.14
+    string name
+    x = 1
+    x += 2
+    x -= 2
+    x *= 2
+    x /= 2
+    x %= 2
+    x &= 2
+    x |= 2
+    x ^= 2
+    x <<= 2
+    x >>= 2
+    x++
+    x--
+    p.x = p.y
+    xs[0] = xs[1]
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (integer_literal))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (float_literal))
+      (variable_declaration
+        (type_identifier)
+        (identifier))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (update_statement
+        (identifier))
+      (update_statement
+        (identifier))
+      (assignment_statement
+        (field_expression
+          (identifier)
+          (identifier))
+        (field_expression
+          (identifier)
+          (identifier)))
+      (assignment_statement
+        (index_expression
+          (identifier)
+          (integer_literal))
+        (index_expression
+          (identifier)
+          (integer_literal))))))
+
+================================================================================
+If and else
+================================================================================
+
+void f() {
+    if (a) {
+        b()
+    }
+    if (a) { b() } else { c() }
+    if (a) {
+        b()
+    } else if (c) {
+        d()
+    }
+    else {
+        e()
+    }
+    if (a)
+    {
+        b()
+    }
+    // a comment before else
+    else
+    {
+        c()
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (if_statement
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (if_statement
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments)))))
+      (if_statement
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (if_statement
+          (identifier)
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments))))
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments))))))
+      (if_statement
+        (identifier)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (comment)
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))))))
+
+================================================================================
+For loops
+================================================================================
+
+void f() {
+    for {
+        break
+    }
+    for (x < 10) {
+        continue
+    }
+    for (i32 i = 0; i < 10; i++) {
+    }
+    for (i = 0; i < n; i += 2) { }
+    for (;;) { }
+    for (; x > 0;) { x-- }
+    for (i32 v in values) { }
+    for (ref Point p in points) { }
+    for (string key, ref list<i32> value in table) { }
+    for (i32 i = 0; i < 3; i++)
+    {
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (for_statement
+        (block
+          (break_statement)))
+      (for_statement
+        (binary_expression
+          (identifier)
+          (integer_literal))
+        (block
+          (continue_statement)))
+      (for_statement
+        (for_clause
+          (variable_declaration
+            (type_identifier)
+            (identifier)
+            (integer_literal))
+          (binary_expression
+            (identifier)
+            (integer_literal))
+          (update_statement
+            (identifier)))
+        (block))
+      (for_statement
+        (for_clause
+          (assignment_statement
+            (identifier)
+            (integer_literal))
+          (binary_expression
+            (identifier)
+            (identifier))
+          (assignment_statement
+            (identifier)
+            (integer_literal)))
+        (block))
+      (for_statement
+        (for_clause)
+        (block))
+      (for_statement
+        (for_clause
+          (binary_expression
+            (identifier)
+            (integer_literal)))
+        (block
+          (update_statement
+            (identifier))))
+      (for_statement
+        (for_in_clause
+          (for_binding
+            (type_identifier)
+            (identifier))
+          (identifier))
+        (block))
+      (for_statement
+        (for_in_clause
+          (for_binding
+            (type_identifier)
+            (identifier))
+          (identifier))
+        (block))
+      (for_statement
+        (for_in_clause
+          (for_binding
+            (type_identifier)
+            (identifier))
+          (for_binding
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (type_identifier)))
+            (identifier))
+          (identifier))
+        (block))
+      (for_statement
+        (for_clause
+          (variable_declaration
+            (type_identifier)
+            (identifier)
+            (integer_literal))
+          (binary_expression
+            (identifier)
+            (integer_literal))
+          (update_statement
+            (identifier)))
+        (block)))))
+
+================================================================================
+Return and throw
+================================================================================
+
+i32 f() {
+    throw
+    throw Error("bad")
+    ret
+    ret 1 + 2
+}
+
+void g() { ret }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (type_identifier)
+    (identifier)
+    (parameter_list)
+    (block
+      (throw_statement)
+      (throw_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (string_literal
+              (string_content)))))
+      (return_statement)
+      (return_statement
+        (binary_expression
+          (integer_literal)
+          (integer_literal)))))
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (return_statement))))
+
+================================================================================
+Try, catch and finally
+================================================================================
+
+void f() {
+    try {
+        risky()
+    } catch (IoError e) {
+        println(e.message)
+    } catch (fs.Error e) {
+    } finally {
+        done()
+    }
+    try {
+        risky()
+    }
+    catch (Error e) {
+    }
+    finally {
+    }
+    try { risky() } finally { done() }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (try_statement
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (catch_clause
+          (type_identifier)
+          (identifier)
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments
+                  (field_expression
+                    (identifier)
+                    (identifier)))))))
+        (catch_clause
+          (qualified_type
+            (identifier)
+            (type_identifier))
+          (identifier)
+          (block))
+        (finally_clause
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments))))))
+      (try_statement
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (catch_clause
+          (type_identifier)
+          (identifier)
+          (block))
+        (finally_clause
+          (block)))
+      (try_statement
+        (block
+          (expression_statement
+            (call_expression
+              (identifier)
+              (arguments))))
+        (finally_clause
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments)))))))))
+
+================================================================================
+Lines that continue
+================================================================================
+
+void f() {
+    i32 total = a +
+        b *
+        c
+    bool ok = a &&
+        b ||
+        !c
+    call(a,
+         b,
+         c)
+    list<i32> xs = [
+        1,
+        2,
+    ]
+    builder.
+        add(1).
+        add(2)
+    x = a ?
+        b :
+        c
+    x =
+        5
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (unary_expression
+            (identifier))))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier)
+            (identifier)
+            (identifier))))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)))
+        (identifier)
+        (list_literal
+          (integer_literal)
+          (integer_literal)))
+      (expression_statement
+        (call_expression
+          (field_expression
+            (call_expression
+              (field_expression
+                (identifier)
+                (identifier))
+              (arguments
+                (integer_literal)))
+            (identifier))
+          (arguments
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (identifier)
+          (identifier)
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (integer_literal)))))
+
+================================================================================
+Statements end at the end of the file
+================================================================================
+
+const i32 A = 1 // a comment
+const i32 B = 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (integer_literal))
+  (comment)
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (integer_literal)))

@@ -1,0 +1,263 @@
+================================================================================
+Enums
+================================================================================
+
+enum Color {
+    Red
+    Green
+    Blue
+}
+
+public enum Token : Printable {
+    Number(f64 value)
+    Name(string text, i32 line)
+    End
+
+    public bool isEnd() const {
+        ret false
+    }
+}
+
+enum Flags {
+    Read = 1
+    Write = 2
+    Both = 1 | 2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (type_identifier)
+    (enum_body
+      (enum_case
+        (identifier))
+      (enum_case
+        (identifier))
+      (enum_case
+        (identifier))))
+  (enum_declaration
+    (type_identifier)
+    (interface_list
+      (type_identifier))
+    (enum_body
+      (enum_case
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (enum_case
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (enum_case
+        (identifier))
+      (method_definition
+        (type_identifier)
+        (identifier)
+        (parameter_list)
+        (block
+          (return_statement
+            (boolean_literal))))))
+  (enum_declaration
+    (type_identifier)
+    (enum_body
+      (enum_case
+        (identifier)
+        (integer_literal))
+      (enum_case
+        (identifier)
+        (integer_literal))
+      (enum_case
+        (identifier)
+        (binary_expression
+          (integer_literal)
+          (integer_literal))))))
+
+================================================================================
+Switch
+================================================================================
+
+void f() {
+    switch (shape) {
+        case Circle(f64 r) {
+            area = r * r
+        }
+        case Square(ref f64 side), Rect(f64 w, f64 h) { }
+        case Empty, Unknown { ret }
+        default { }
+    }
+    switch (code) {
+        case 1, 2, -3 { }
+        case 'a' { }
+        case "name" { }
+        default
+        {
+        }
+    }
+    switch {
+        case Ready { go() }
+    }
+    switch (x) { case A { } case B { } }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (switch_statement
+        (identifier)
+        (switch_body
+          (case_clause
+            (case_pattern
+              (identifier)
+              (pattern_bindings
+                (pattern_binding
+                  (type_identifier)
+                  (identifier))))
+            (block
+              (assignment_statement
+                (identifier)
+                (binary_expression
+                  (identifier)
+                  (identifier)))))
+          (case_clause
+            (case_pattern
+              (identifier)
+              (pattern_bindings
+                (pattern_binding
+                  (type_identifier)
+                  (identifier))))
+            (case_pattern
+              (identifier)
+              (pattern_bindings
+                (pattern_binding
+                  (type_identifier)
+                  (identifier))
+                (pattern_binding
+                  (type_identifier)
+                  (identifier))))
+            (block))
+          (case_clause
+            (case_pattern
+              (identifier))
+            (case_pattern
+              (identifier))
+            (block
+              (return_statement)))
+          (default_clause
+            (block))))
+      (switch_statement
+        (identifier)
+        (switch_body
+          (case_clause
+            (case_pattern
+              (integer_literal))
+            (case_pattern
+              (integer_literal))
+            (case_pattern
+              (unary_expression
+                (integer_literal)))
+            (block))
+          (case_clause
+            (case_pattern
+              (char_literal))
+            (block))
+          (case_clause
+            (case_pattern
+              (string_literal
+                (string_content)))
+            (block))
+          (default_clause
+            (block))))
+      (switch_statement
+        (switch_body
+          (case_clause
+            (case_pattern
+              (identifier))
+            (block
+              (expression_statement
+                (call_expression
+                  (identifier)
+                  (arguments)))))))
+      (switch_statement
+        (identifier)
+        (switch_body
+          (case_clause
+            (case_pattern
+              (identifier))
+            (block))
+          (case_clause
+            (case_pattern
+              (identifier))
+            (block)))))))
+
+================================================================================
+Enum values
+================================================================================
+
+void f() {
+    Color c = Color.Red
+    Shape s = Shape.Circle(1.0)
+    Option<i32> o = Option<i32>.Some(5)
+    geometry.Shape g = geometry.Shape.Square
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (field_expression
+          (identifier)
+          (identifier)))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (call_expression
+          (field_expression
+            (identifier)
+            (identifier))
+          (arguments
+            (float_literal))))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)))
+        (identifier)
+        (call_expression
+          (field_expression
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (type_identifier)))
+            (identifier))
+          (arguments
+            (integer_literal))))
+      (variable_declaration
+        (qualified_type
+          (identifier)
+          (type_identifier))
+        (identifier)
+        (field_expression
+          (field_expression
+            (identifier)
+            (identifier))
+          (identifier))))))

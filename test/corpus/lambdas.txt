@@ -1,0 +1,263 @@
+================================================================================
+Lambdas
+================================================================================
+
+void f() {
+    func(i32) i32 twice = [](i32 x) i32 { ret x * 2 }
+    func() hello = []() { println("hi") }
+    func(i32) bool above = [limit](i32 x) bool { ret x > limit }
+    func() g = [a, ref b, move c]() {
+        b = a
+    }
+    func() list<i32> make = []() list<i32> { ret [1] }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (function_type
+          (function_type_parameters
+            (type_identifier))
+          (type_identifier))
+        (identifier)
+        (lambda_expression
+          (capture_list)
+          (parameter_list
+            (parameter
+              (type_identifier)
+              (identifier)))
+          (type_identifier)
+          (block
+            (return_statement
+              (binary_expression
+                (identifier)
+                (integer_literal))))))
+      (variable_declaration
+        (function_type
+          (function_type_parameters))
+        (identifier)
+        (lambda_expression
+          (capture_list)
+          (parameter_list)
+          (block
+            (expression_statement
+              (call_expression
+                (identifier)
+                (arguments
+                  (string_literal
+                    (string_content))))))))
+      (variable_declaration
+        (function_type
+          (function_type_parameters
+            (type_identifier))
+          (type_identifier))
+        (identifier)
+        (lambda_expression
+          (capture_list
+            (capture
+              (identifier)))
+          (parameter_list
+            (parameter
+              (type_identifier)
+              (identifier)))
+          (type_identifier)
+          (block
+            (return_statement
+              (binary_expression
+                (identifier)
+                (identifier))))))
+      (variable_declaration
+        (function_type
+          (function_type_parameters))
+        (identifier)
+        (lambda_expression
+          (capture_list
+            (capture
+              (identifier))
+            (capture
+              (identifier))
+            (capture
+              (identifier)))
+          (parameter_list)
+          (block
+            (assignment_statement
+              (identifier)
+              (identifier)))))
+      (variable_declaration
+        (function_type
+          (function_type_parameters)
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_identifier))))
+        (identifier)
+        (lambda_expression
+          (capture_list)
+          (parameter_list)
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_identifier)))
+          (block
+            (return_statement
+              (list_literal
+                (integer_literal)))))))))
+
+================================================================================
+Lambdas as arguments
+================================================================================
+
+void f() {
+    xs.each([](i32 v) {
+        println(v)
+        total += v
+    })
+    ys = xs.filter([limit](i32 v) bool { ret v > limit }).map<string>([](i32 v) string {
+        ret format("{}", v)
+    })
+    run([ref count]() { count++ }, 3)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (expression_statement
+        (call_expression
+          (field_expression
+            (identifier)
+            (identifier))
+          (arguments
+            (lambda_expression
+              (capture_list)
+              (parameter_list
+                (parameter
+                  (type_identifier)
+                  (identifier)))
+              (block
+                (expression_statement
+                  (call_expression
+                    (identifier)
+                    (arguments
+                      (identifier))))
+                (assignment_statement
+                  (identifier)
+                  (identifier)))))))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (field_expression
+            (call_expression
+              (field_expression
+                (identifier)
+                (identifier))
+              (arguments
+                (lambda_expression
+                  (capture_list
+                    (capture
+                      (identifier)))
+                  (parameter_list
+                    (parameter
+                      (type_identifier)
+                      (identifier)))
+                  (type_identifier)
+                  (block
+                    (return_statement
+                      (binary_expression
+                        (identifier)
+                        (identifier)))))))
+            (identifier))
+          (type_arguments
+            (type_identifier))
+          (arguments
+            (lambda_expression
+              (capture_list)
+              (parameter_list
+                (parameter
+                  (type_identifier)
+                  (identifier)))
+              (type_identifier)
+              (block
+                (return_statement
+                  (call_expression
+                    (identifier)
+                    (arguments
+                      (string_literal
+                        (placeholder))
+                      (identifier)))))))))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (lambda_expression
+              (capture_list
+                (capture
+                  (identifier)))
+              (parameter_list)
+              (block
+                (update_statement
+                  (identifier))))
+            (integer_literal)))))))
+
+================================================================================
+A lambda with the brace on the next line
+================================================================================
+
+void f() {
+    func(i32) i32 g = [](i32 x) i32
+    {
+        ret x
+    }
+    i32 y = [](i32 x) i32 { ret x }(3)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (function_type
+          (function_type_parameters
+            (type_identifier))
+          (type_identifier))
+        (identifier)
+        (lambda_expression
+          (capture_list)
+          (parameter_list
+            (parameter
+              (type_identifier)
+              (identifier)))
+          (type_identifier)
+          (block
+            (return_statement
+              (identifier)))))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (call_expression
+          (lambda_expression
+            (capture_list)
+            (parameter_list
+              (parameter
+                (type_identifier)
+                (identifier)))
+            (type_identifier)
+            (block
+              (return_statement
+                (identifier))))
+          (arguments
+            (integer_literal)))))))

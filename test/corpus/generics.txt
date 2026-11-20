@@ -1,0 +1,331 @@
+================================================================================
+Generic functions and structs
+================================================================================
+
+T max<T : Comparable>(T a, T b) {
+    ret a
+}
+
+struct Pair<K : Key + Printable, V> : Printable {
+    K key
+    V value
+
+    U map<U>(func(V) U f) const {
+        ret f(value)
+    }
+}
+
+enum Option<T> {
+    Some(T value)
+    None
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (type_identifier)
+    (identifier)
+    (type_parameters
+      (type_parameter
+        (type_identifier)
+        (type_identifier)))
+    (parameter_list
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (type_identifier)
+        (identifier)))
+    (block
+      (return_statement
+        (identifier))))
+  (struct_declaration
+    (type_identifier)
+    (type_parameters
+      (type_parameter
+        (type_identifier)
+        (type_identifier)
+        (type_identifier))
+      (type_parameter
+        (type_identifier)))
+    (interface_list
+      (type_identifier))
+    (struct_body
+      (field_declaration
+        (type_identifier)
+        (identifier))
+      (field_declaration
+        (type_identifier)
+        (identifier))
+      (method_definition
+        (type_identifier)
+        (identifier)
+        (type_parameters
+          (type_parameter
+            (type_identifier)))
+        (parameter_list
+          (parameter
+            (function_type
+              (function_type_parameters
+                (type_identifier))
+              (type_identifier))
+            (identifier)))
+        (block
+          (return_statement
+            (call_expression
+              (identifier)
+              (arguments
+                (identifier))))))))
+  (enum_declaration
+    (type_identifier)
+    (type_parameters
+      (type_parameter
+        (type_identifier)))
+    (enum_body
+      (enum_case
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier))))
+      (enum_case
+        (identifier)))))
+
+================================================================================
+Generic types in declarations
+================================================================================
+
+void f() {
+    list<i32> xs
+    map<string, list<i32>> table
+    list<list<list<i32>>> cube
+    list<func(i32) bool> checks
+    Result<i32, string> r = compute()
+    json.Value<i32> v
+    list<i32>[4] rows
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)))
+        (identifier))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (type_identifier)))))
+        (identifier))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (generic_type
+                  (type_identifier)
+                  (type_arguments
+                    (type_identifier)))))))
+        (identifier))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (function_type
+              (function_type_parameters
+                (type_identifier))
+              (type_identifier))))
+        (identifier))
+      (variable_declaration
+        (generic_type
+          (type_identifier)
+          (type_arguments
+            (type_identifier)
+            (type_identifier)))
+        (identifier)
+        (call_expression
+          (identifier)
+          (arguments)))
+      (variable_declaration
+        (generic_type
+          (qualified_type
+            (identifier)
+            (type_identifier))
+          (type_arguments
+            (type_identifier)))
+        (identifier))
+      (variable_declaration
+        (array_type
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_identifier)))
+          (integer_literal))
+        (identifier)))))
+
+================================================================================
+Generic calls
+================================================================================
+
+void f() {
+    x = max<i32>(a, b)
+    xs = list<i32>()
+    table = map<string, list<i32>>()
+    user = json.decode<User>(text)
+    names = users[0].map<string>(getName)
+    r = Result<i32, string>.Ok(5)
+    Option<i32>.None
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (identifier)
+          (type_arguments
+            (type_identifier))
+          (arguments
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (identifier)
+          (type_arguments
+            (type_identifier))
+          (arguments)))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (identifier)
+          (type_arguments
+            (type_identifier)
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (type_identifier))))
+          (arguments)))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (field_expression
+            (identifier)
+            (identifier))
+          (type_arguments
+            (type_identifier))
+          (arguments
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (field_expression
+            (index_expression
+              (identifier)
+              (integer_literal))
+            (identifier))
+          (type_arguments
+            (type_identifier))
+          (arguments
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (call_expression
+          (field_expression
+            (generic_type
+              (type_identifier)
+              (type_arguments
+                (type_identifier)
+                (type_identifier)))
+            (identifier))
+          (arguments
+            (integer_literal))))
+      (expression_statement
+        (field_expression
+          (generic_type
+            (type_identifier)
+            (type_arguments
+              (type_identifier)))
+          (identifier))))))
+
+================================================================================
+Comparisons that are not type arguments
+================================================================================
+
+void f() {
+    bool a = x < y
+    bool b = x < y && y > z
+    bool c = x < y || z > (w)
+    if (i < n) { }
+    k = i < n ? i : n
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (binary_expression
+          (identifier)
+          (identifier)))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (variable_declaration
+        (type_identifier)
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (binary_expression
+            (identifier)
+            (parenthesized_expression
+              (identifier)))))
+      (if_statement
+        (binary_expression
+          (identifier)
+          (identifier))
+        (block))
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (identifier)
+          (identifier))))))

@@ -1,0 +1,12 @@
+{
+  "name": "tree-sitter-cromo",
+  "version": "0.1.0",
+  "description": "Cromo grammar for tree-sitter",
+  "license": "MIT",
+  "main": "grammar.js",
+  "keywords": ["tree-sitter", "parser", "cromo"],
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}

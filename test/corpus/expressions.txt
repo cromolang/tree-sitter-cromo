@@ -1,0 +1,570 @@
+================================================================================
+Literals
+================================================================================
+
+void f() {
+    x = 42
+    x = 1_000_000
+    x = 0xFF_FF
+    x = 0b1010
+    x = 3.14
+    x = 1e9
+    x = 2.5e-3
+    x = true
+    x = false
+    x = 'a'
+    x = '\n'
+    x = '\x41'
+    x = '\''
+    x = "text"
+    x = ""
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (float_literal))
+      (assignment_statement
+        (identifier)
+        (float_literal))
+      (assignment_statement
+        (identifier)
+        (float_literal))
+      (assignment_statement
+        (identifier)
+        (boolean_literal))
+      (assignment_statement
+        (identifier)
+        (boolean_literal))
+      (assignment_statement
+        (identifier)
+        (char_literal))
+      (assignment_statement
+        (identifier)
+        (char_literal))
+      (assignment_statement
+        (identifier)
+        (char_literal))
+      (assignment_statement
+        (identifier)
+        (char_literal))
+      (assignment_statement
+        (identifier)
+        (string_literal
+          (string_content)))
+      (assignment_statement
+        (identifier)
+        (string_literal)))))
+
+================================================================================
+Strings with escapes and placeholders
+================================================================================
+
+void f() {
+    println("a {} b {0} c {:x} {{literal}} \n\t \x41 \u{1F600} \"q\"")
+    s = "// not a comment"
+    s = "/* not a comment */ {"
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (string_literal
+              (string_content)
+              (placeholder)
+              (string_content)
+              (placeholder)
+              (string_content)
+              (placeholder)
+              (string_content)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)
+              (string_content)
+              (escape_sequence)))))
+      (assignment_statement
+        (identifier)
+        (string_literal
+          (string_content)))
+      (assignment_statement
+        (identifier)
+        (string_literal
+          (string_content)
+          (string_content))))))
+
+================================================================================
+Operator precedence
+================================================================================
+
+void f() {
+    x = a + b * c
+    x = a * b + c
+    x = a | b & c ^ d
+    x = a == b | c
+    x = a < b == c > d
+    x = a << 1 + 2
+    x = a || b && c
+    x = -a * !b
+    x = (a + b) * c
+    x = a - b - c
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (binary_expression
+              (identifier)
+              (identifier))
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (integer_literal)
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (unary_expression
+            (identifier))
+          (unary_expression
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (parenthesized_expression
+            (binary_expression
+              (identifier)
+              (identifier)))
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (identifier))))))
+
+================================================================================
+Shifts and comparisons
+================================================================================
+
+void f() {
+    x = a >> 2
+    x = a >> b >> c
+    x = a << 2 >> 1
+    x = a > b
+    x = a >= b
+    x = a & b >> 3
+    x = a < b >> 3
+    x >>= 1
+    y = x >> 1 > 2
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (integer_literal)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (integer_literal))
+          (integer_literal)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (integer_literal))
+      (assignment_statement
+        (identifier)
+        (binary_expression
+          (binary_expression
+            (identifier)
+            (integer_literal))
+          (integer_literal))))))
+
+================================================================================
+Conditional expressions
+================================================================================
+
+void f() {
+    x = a ? b : c
+    x = a ? b : c ? d : e
+    x = a > b ? a + 1 : b - 1
+    x = a ? (b ? 1 : 2) : 3
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (identifier)
+          (identifier)
+          (identifier)))
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (identifier)
+          (identifier)
+          (conditional_expression
+            (identifier)
+            (identifier)
+            (identifier))))
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (binary_expression
+            (identifier)
+            (identifier))
+          (binary_expression
+            (identifier)
+            (integer_literal))
+          (binary_expression
+            (identifier)
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (conditional_expression
+          (identifier)
+          (parenthesized_expression
+            (conditional_expression
+              (identifier)
+              (integer_literal)
+              (integer_literal)))
+          (integer_literal))))))
+
+================================================================================
+Calls, fields and indexes
+================================================================================
+
+void f() {
+    g()
+    g(1, x, "s")
+    p.x = 1
+    a.b.c()
+    xs[i + 1].name
+    handlers[0](x)
+    make()(1)(2)
+    i32(x) + f64(y)
+    grid[1][2] = 3
+    Point(1, 2).length()
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments)))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (integer_literal)
+            (identifier)
+            (string_literal
+              (string_content)))))
+      (assignment_statement
+        (field_expression
+          (identifier)
+          (identifier))
+        (integer_literal))
+      (expression_statement
+        (call_expression
+          (field_expression
+            (field_expression
+              (identifier)
+              (identifier))
+            (identifier))
+          (arguments)))
+      (expression_statement
+        (field_expression
+          (index_expression
+            (identifier)
+            (binary_expression
+              (identifier)
+              (integer_literal)))
+          (identifier)))
+      (expression_statement
+        (call_expression
+          (index_expression
+            (identifier)
+            (integer_literal))
+          (arguments
+            (identifier))))
+      (expression_statement
+        (call_expression
+          (call_expression
+            (call_expression
+              (identifier)
+              (arguments))
+            (arguments
+              (integer_literal)))
+          (arguments
+            (integer_literal))))
+      (expression_statement
+        (binary_expression
+          (call_expression
+            (identifier)
+            (arguments
+              (identifier)))
+          (call_expression
+            (identifier)
+            (arguments
+              (identifier)))))
+      (assignment_statement
+        (index_expression
+          (index_expression
+            (identifier)
+            (integer_literal))
+          (integer_literal))
+        (integer_literal))
+      (expression_statement
+        (call_expression
+          (field_expression
+            (call_expression
+              (identifier)
+              (arguments
+                (integer_literal)
+                (integer_literal)))
+            (identifier))
+          (arguments))))))
+
+================================================================================
+Ref and move
+================================================================================
+
+void f() {
+    swap(ref a, ref b)
+    take(move a)
+    push(ref xs[0], move p.name)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (ref_expression
+              (identifier))
+            (ref_expression
+              (identifier)))))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (move_expression
+              (identifier)))))
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (ref_expression
+              (index_expression
+                (identifier)
+                (integer_literal)))
+            (move_expression
+              (field_expression
+                (identifier)
+                (identifier)))))))))
+
+================================================================================
+List literals
+================================================================================
+
+void f() {
+    xs = []
+    xs = [1, 2, 3]
+    xs = [1, 2, 3,]
+    xs = [[1, 2], [3]]
+    xs = [a + b, f(c)][0]
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (assignment_statement
+        (identifier)
+        (list_literal))
+      (assignment_statement
+        (identifier)
+        (list_literal
+          (integer_literal)
+          (integer_literal)
+          (integer_literal)))
+      (assignment_statement
+        (identifier)
+        (list_literal
+          (integer_literal)
+          (integer_literal)
+          (integer_literal)))
+      (assignment_statement
+        (identifier)
+        (list_literal
+          (list_literal
+            (integer_literal)
+            (integer_literal))
+          (list_literal
+            (integer_literal))))
+      (assignment_statement
+        (identifier)
+        (index_expression
+          (list_literal
+            (binary_expression
+              (identifier)
+              (identifier))
+            (call_expression
+              (identifier)
+              (arguments
+                (identifier))))
+          (integer_literal))))))

@@ -1,0 +1,122 @@
+================================================================================
+Attributes of functions
+================================================================================
+
+[[test]]
+void addsNumbers() {
+    assert(1 + 1 == 2)
+}
+
+[[window]]
+[[android("permission", internet)]]
+public void main() {
+}
+
+[[test]] void inline() { }
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_definition
+    (attribute
+      (identifier))
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (binary_expression
+              (binary_expression
+                (integer_literal)
+                (integer_literal))
+              (integer_literal)))))))
+  (function_definition
+    (attribute
+      (identifier))
+    (attribute
+      (identifier)
+      (attribute_arguments
+        (string_literal
+          (string_content))
+        (identifier)))
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block))
+  (function_definition
+    (attribute
+      (identifier))
+    (void_type)
+    (identifier)
+    (parameter_list)
+    (block)))
+
+================================================================================
+Attributes of fields and cases
+================================================================================
+
+struct User {
+    [[json("user_id")]]
+    public i32 id
+    [[json("name")]] [[column(name, "text")]]
+    string name
+}
+
+enum Kind {
+    [[json("a")]]
+    First
+    [[json("b")]] Second(i32 value)
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (struct_declaration
+    (type_identifier)
+    (struct_body
+      (field_declaration
+        (attribute
+          (identifier)
+          (attribute_arguments
+            (string_literal
+              (string_content))))
+        (type_identifier)
+        (identifier))
+      (field_declaration
+        (attribute
+          (identifier)
+          (attribute_arguments
+            (string_literal
+              (string_content))))
+        (attribute
+          (identifier)
+          (attribute_arguments
+            (identifier)
+            (string_literal
+              (string_content))))
+        (type_identifier)
+        (identifier))))
+  (enum_declaration
+    (type_identifier)
+    (enum_body
+      (enum_case
+        (attribute
+          (identifier)
+          (attribute_arguments
+            (string_literal
+              (string_content))))
+        (identifier))
+      (enum_case
+        (attribute
+          (identifier)
+          (attribute_arguments
+            (string_literal
+              (string_content))))
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier)))))))
