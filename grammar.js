@@ -85,10 +85,11 @@ module.exports = grammar({
       seq($.import_declaration, $._newline),
       $.extern_block,
       $.struct_declaration,
+      $.extend_declaration,
       $.enum_declaration,
       $.interface_declaration,
       $.function_definition,
-      seq($.variable_declaration, $._newline),
+      seq(optional('public'), $.variable_declaration, $._newline),
     ),
 
     // ---- Modules ----
@@ -164,6 +165,13 @@ module.exports = grammar({
       field('name', alias($.identifier, $.type_identifier)),
       optional(field('type_parameters', $.type_parameters)),
       optional(field('interfaces', $.interface_list)),
+      field('body', $.struct_body),
+    ),
+
+    // `extend Name { ... }`: methods added to a struct or an enum of the same module.
+    extend_declaration: $ => seq(
+      'extend',
+      field('name', alias($.identifier, $.type_identifier)),
       field('body', $.struct_body),
     ),
 
@@ -321,8 +329,10 @@ module.exports = grammar({
       $.expression_statement,
     ),
 
+    // `ref T x = place` and `const ref T x = place` name a place of the block.
     variable_declaration: $ => seq(
       optional('const'),
+      optional('ref'),
       field('type', $._type),
       field('name', $.identifier),
       optional(seq('=', field('value', $._expression))),

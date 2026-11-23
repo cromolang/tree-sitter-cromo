@@ -1461,6 +1461,32 @@
     }
   },
   {
+    "type": "extend_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "struct_body",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "extern_block",
     "named": true,
     "fields": {
@@ -3406,6 +3432,10 @@
           "named": true
         },
         {
+          "type": "extend_declaration",
+          "named": true
+        },
+        {
           "type": "extern_block",
           "named": true
         },
@@ -4339,6 +4369,10 @@
   {
     "type": "escape_sequence",
     "named": true
+  },
+  {
+    "type": "extend",
+    "named": false
   },
   {
     "type": "extern",

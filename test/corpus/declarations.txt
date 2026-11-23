@@ -346,3 +346,47 @@ void f(geometry.Circle c, list<geometry.Point> points, i32[4][2] grid) {
           (identifier)
           (integer_literal))
         (integer_literal)))))
+
+================================================================================
+References, public constants and extend blocks
+================================================================================
+
+public const i64 limit = 1024
+
+extend Account {
+    public void deposit(i64 amount) {
+        ref i64 total = balance
+        const ref string name = owner
+        total += amount
+    }
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (variable_declaration
+    (type_identifier)
+    (identifier)
+    (integer_literal))
+  (extend_declaration
+    (type_identifier)
+    (struct_body
+      (method_definition
+        (void_type)
+        (identifier)
+        (parameter_list
+          (parameter
+            (type_identifier)
+            (identifier)))
+        (block
+          (variable_declaration
+            (type_identifier)
+            (identifier)
+            (identifier))
+          (variable_declaration
+            (type_identifier)
+            (identifier)
+            (identifier))
+          (assignment_statement
+            (identifier)
+            (identifier)))))))
